@@ -25,8 +25,7 @@ app.post('/signup', userController.checkIfUsernameExists,
                     sessionController.startSession,
                     cookieController.setCookie);
 app.post('/recipeDisplay', recipeController.saveRecipe);
-app.post('/delete', sessionController.isLoggedIn,
-                    recipeController.deleteRecipe);
+app.post('/delete', recipeController.deleteRecipe);
 app.get('/search', apiController.find);
 
 app.get('/day/:day/:username', dayController.getRowsForDay);//req.params.day /monday/doug

@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Recipe from './recipe.js';
 import SavedRecipe from './savedRecipe.js'
+import { Link } from 'react-router-dom';
 //whatever child components we need
 
 class Day extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       username: this.props.username,
       day: this.props.day,
@@ -27,10 +28,14 @@ class Day extends Component {
       });
   }
 
-  render() {
 
+  render() {
     const recipes = this.state.savedRecipes.map((curr, index) => {
-      return <SavedRecipe recipeData={curr} key={index} />
+      return (
+        <div>
+          <SavedRecipe recipeData={curr} key={index} />
+        </div>
+      )
     });
 
     return (

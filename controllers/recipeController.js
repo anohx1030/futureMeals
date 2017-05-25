@@ -27,7 +27,6 @@ recipeController.saveRecipe = (req, res, next) => {
             }).then((users) => {
                 const uid = users[0].dataValues.id;
                 const rid = recipe.dataValues.id;
-                console.log(`rid ${rid}`, `uid ${uid}`);
                 db.connections.UserAndRecipe.create({
                     uid,
                     rid,
@@ -43,16 +42,29 @@ recipeController.saveRecipe = (req, res, next) => {
 }
 
 recipeController.deleteRecipe = (req, res, next) => {
-    let day = req.body.day;
-    let username = req.body.username;
-    db.conn.query(`DELETE FROM ${username} WHERE day='${day}';`,
-        (err, result) => {
-            if (err) return new Error(err);
-            else {
-                res.send(result);
-            }
-        }
-    );
+    const day = req.body.day;
+    console.log(req.body)
+    const username = req.body.username;
+    db.connections.User.findAll({
+        where: {username}}).then(
+            (users) =>
+                db.connections.UserAndRecipe.destroy ({
+                    where: {
+                        uid : users[0].id,
+                        rid : req.body.recipeData.id,
+                        day : day
+                    }
+                })
+        );
+
+
+
+
+    // db.connections.UserAndRecipe.destroy ({
+    //     where: {
+
+    //     }
+    // });
 }
 
 module.exports = recipeController;
