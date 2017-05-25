@@ -23,10 +23,12 @@ class SavedRecipe extends Component {
 
   render() {
 
+
     const ingredients = this.props.recipeData.ingredientLines.map(ing => {
       return <li>{ing}</li>;
     })
     // console.log('INGREDIENTS ---->', Array.isArray(ingredients))
+
 
     return (
       <div>
@@ -37,7 +39,7 @@ class SavedRecipe extends Component {
 
         <Link to="/profile" onClick={this.deleteRecipe} >Delete</Link>
       </div>
-    )
+    );
   }
 }
 
